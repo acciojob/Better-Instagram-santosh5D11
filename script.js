@@ -18,9 +18,17 @@ images.forEach((image) => {
             return;
         }
 
-        const tempId = draggedElement.id;
+		// Get the actual background images from CSS
+        const draggedImage = getComputedStyle(draggedElement).backgroundImage;
+        const targetImage = getComputedStyle(this).backgroundImage;
 
-        draggedElement.id = this.id;
-        this.id = tempId;
+        // Swap background images
+        draggedElement.style.backgroundImage = targetImage;
+        this.style.backgroundImage = draggedImage;
+
+        // Swap the text/content as well
+        const tempContent = draggedElement.innerHTML;
+        draggedElement.innerHTML = this.innerHTML;
+        this.innerHTML = tempContent;
     });
 });
